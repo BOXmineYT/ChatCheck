@@ -1,0 +1,8 @@
+name: ChatCheck
+version: '${project.version}'
+main: boxminestudio.chatcheck
+api-version: '1.17'
+author: BOXmineYT,NateAles
+commands:
+  cc:
+    description: Основная команда плагина

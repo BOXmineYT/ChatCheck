@@ -1,0 +1,25 @@
+version: 1.0 #не трогайте пожалуйста
+
+#слова которые запрещены навашем сервере
+bannedmessage:
+  - тварь
+
+#наказания которые буду применяться если игрок напишет плохое слово
+punishment:
+  - kick %player_name% не любим плохие слова
+
+#сообщение в плагине
+messages:
+  NoPermisionhelp: '&cУ вас нет прав!'
+  Reloadplugin: '&aПлагин перезагружен!'
+  NoPermisionreload: '&cУ вас нет прав!'
+
+# здесь вы можете настроить все права команд
+permissions:
+  help: 'chatchek.help'
+  reload: 'chatcheck.reload'
+
+#сообщение в команда /cc help
+help:
+  reload: 'Перезагрузка плагина'
+  help: 'Помощь по плагину'
