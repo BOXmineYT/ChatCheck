@@ -1,4 +1,10 @@
-version: 1.0 #не трогайте пожалуйста
+version: 1.1 #не трогайте пожалуйста
+
+new-version:
+  - '&a[ChatCheck] Вышла новая версия плагина: %version% '
+  - '&6Скачать - &a&nspigotmc.org/resources/chatcheck.113569/ '
+
+update-check: true
 
 #слова которые запрещены навашем сервере
 bannedmessage:
@@ -13,6 +19,8 @@ messages:
   NoPermisionhelp: '&cУ вас нет прав!'
   Reloadplugin: '&aПлагин перезагружен!'
   NoPermisionreload: '&cУ вас нет прав!'
+  NoCCcommand: '&cТакой команды нет! &fДоступные команды: &7/cc (help/reload)'
+  ProblemUpdateCheker: 'Ошибка при проверки версии плагина!'
 
 # здесь вы можете настроить все права команд
 permissions:
@@ -21,5 +29,5 @@ permissions:
 
 #сообщение в команда /cc help
 help:
-  reload: 'Перезагрузка плагина'
-  help: 'Помощь по плагину'
+  - '&6/cc reload &2- Перезагрузка плагина'
+  - '&6/cc help &2- Помощь по плагину'

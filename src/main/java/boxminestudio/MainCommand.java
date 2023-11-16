@@ -7,6 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 
 public class MainCommand implements CommandExecutor {
 
@@ -33,8 +35,7 @@ public class MainCommand implements CommandExecutor {
                     plugin.getConfig().getString("messages.Reloadplugin"));
             sender.sendMessage(s);
             return true;
-        }
-        if(args[0].equalsIgnoreCase("help")) {
+        } else if(args[0].equalsIgnoreCase("help")) {
             if (!sender.hasPermission(plugin.getConfig().getString("permissions.help"))) {
                 String s = ChatColor.translateAlternateColorCodes('&',
                         plugin.getConfig().getString("messages.NoPermisionhelp"));
@@ -42,11 +43,20 @@ public class MainCommand implements CommandExecutor {
                 return true;
             } else {
 
-                sender.sendMessage(ChatColor.GREEN + "ChatCheck 1.0" + ChatColor.WHITE + " by " + ChatColor.RED + "BOXmineYT" + ChatColor.WHITE + " by " + ChatColor.RED + "NateAles");
-                sender.sendMessage(ChatColor.GOLD + "/cc reload " + ChatColor.DARK_GREEN + "-" + plugin.getConfig().getString("help.reload"));
-                sender.sendMessage(ChatColor.GOLD + "/cc help " + ChatColor.DARK_GREEN + "-" + plugin.getConfig().getString("help.help"));
+                sender.sendMessage(ChatColor.GREEN + "ChatCheck 1.1" + ChatColor.WHITE + " by " + ChatColor.RED + "BOXmineYT" + ChatColor.WHITE + " by " + ChatColor.RED + "NateAles");
+                List<String> messageList = plugin.getConfig().getStringList("help");
+                for (String message : messageList) {
+                    message = message.replace("&", "§");
+                    sender.sendMessage(message);
+                }
+
                 return true;
             }
+        } else {
+            String s = ChatColor.translateAlternateColorCodes('&',
+                    plugin.getConfig().getString("messages.NoCCcommand"));
+            sender.sendMessage(s);
+
         }
 
         return false;

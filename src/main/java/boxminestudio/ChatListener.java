@@ -25,7 +25,7 @@ public class ChatListener implements Listener {
 
 
         for (String word : bannedmessage) {
-            if (message.contains(word)) {
+            if (message.toLowerCase().contains(word.toLowerCase())) {
                 event.setCancelled(true);
 
                 Bukkit.getScheduler().runTask(plugin, () -> {

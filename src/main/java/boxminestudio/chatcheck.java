@@ -1,19 +1,18 @@
 package boxminestudio;
 
-import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 
 public final class chatcheck extends JavaPlugin implements Listener {
-
-    private final List<Block> lastTrapdoors = new ArrayList();
 
     public static JavaPlugin instance;
     private File ConfigFile;
@@ -25,7 +24,16 @@ public final class chatcheck extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+
+
+        new UpdateChecker(this, 113569).getVersion(version -> {
+            if (this.getDescription().getVersion().equals(version)) {
+                getLogger().info("There is not a new update available.");
+            } else {
+                getLogger().info("A new version of the plugin has been released. version: " + version );
+                getLogger().info("Download - https://www.spigotmc.org/resources/chatcheck.113569/");
+            }
+        });
 
         File config = new File(getDataFolder() + File.separator + "config.yml");
         if(!config.exists()){
@@ -35,15 +43,15 @@ public final class chatcheck extends JavaPlugin implements Listener {
         }
 
         getServer().getPluginManager().registerEvents(new ChatListener(this), this);
+        this.getServer().getPluginManager().registerEvents(this, this);
         getCommand("cc").setExecutor(new MainCommand(this));
         this.getServer().getPluginManager().addPermission(new Permission(getConfig().getString("permissions.reload")));
         this.getServer().getPluginManager().addPermission(new Permission(getConfig().getString("permissions.help")));
-        //this.getServer().getPluginManager().addPermission(new Permission("chatcheck.update"));
+        this.getServer().getPluginManager().addPermission(new Permission("chatcheck.update"));
 
 
 
-        String requiredVersion = "1.0"; // Минимальная требуемая версия конфига
-
+        String requiredVersion = "1.1";
         if (configVersion == null || !configVersion.equals(requiredVersion)) {
             // Обработка, если версия конфига не соответствует требуемой
             getLogger().info("Outdated config.yml! Creating a new!");
@@ -58,8 +66,27 @@ public final class chatcheck extends JavaPlugin implements Listener {
     }
 
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
+
+
+
+
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        if (this.getConfig().getBoolean("update-check") && player.hasPermission("chatcheck.update")) {
+            (new UpdateChecker(this, 113569)).getVersion((version) -> {
+                if (!this.getDescription().getVersion().equals(version)) {
+
+                    List<String> messageList = getConfig().getStringList("new-version");
+                    for (String message : messageList) {
+                        message = message.replace("%version%", version).replace("&", "§");
+                        player.sendMessage(message);
+                    }
+                }
+
+            });
+        }
+
     }
 }
