@@ -43,6 +43,7 @@ public final class chatcheck extends JavaPlugin implements Listener {
         }
 
         getServer().getPluginManager().registerEvents(new ChatListener(this), this);
+        getServer().getPluginManager().registerEvents(new CheckLicMessageListener(this), this);
         this.getServer().getPluginManager().registerEvents(this, this);
         getCommand("cc").setExecutor(new MainCommand(this));
         this.getServer().getPluginManager().addPermission(new Permission(getConfig().getString("permissions.reload")));

@@ -43,7 +43,7 @@ public class MainCommand implements CommandExecutor {
                 return true;
             } else {
 
-                sender.sendMessage(ChatColor.GREEN + "ChatCheck 1.1" + ChatColor.WHITE + " by " + ChatColor.RED + "BOXmineYT" + ChatColor.WHITE + " by " + ChatColor.RED + "NateAles");
+                sender.sendMessage(ChatColor.GREEN + "ChatCheck 1.2" + ChatColor.WHITE + " by " + ChatColor.RED + "BOXmineYT" + ChatColor.WHITE + " by " + ChatColor.RED + "NateAles");
                 List<String> messageList = plugin.getConfig().getStringList("help");
                 for (String message : messageList) {
                     message = message.replace("&", "§");
